@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@adiwajshing/baileys": "^4.4.0",
+    "@hapi/boom": "^10.0.0",
+    "chalk": "^4.1.2",
+    "cheerio": "^1.0.0-rc.12",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.37",
+    "node-fetch": "^2.6.7",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
