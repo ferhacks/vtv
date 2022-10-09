@@ -64,7 +64,9 @@ const pino = require("pino")
     }
     if (!canexecute) return
     const killua = new WAConnection(WASocket(connOptions))
-
+    killua.reply = (jid, text, quoted, options) => {
+        killua.sendMessage(jid, { text: text}, { quoted: quoted, ...options })
+    }
     killua.ev.on("creds.update", saveCreds)
 
     
