@@ -1,6 +1,7 @@
 const { default: WASocket, Browsers ,DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, delay, jidNormalizedUser, makeWALegacySocket, useSingleFileLegacyAuthState, DEFAULT_CONNECTION_CONFIG, DEFAULT_LEGACY_CONNECTION_CONFIG } = require("@adiwajshing/baileys")
 let interval = null
 groups = null
+canexecute = true
 global.prefa = /^[#$+.?_&<>!/\\]/
 const simple = require("./libs/simple")
 const functions = require("./libs/Function")
@@ -30,16 +31,17 @@ async function getStudioInfo(siteId) {
 async function connect () {
     if (interval) clearInterval(interval)
     function setConfg (){
-        global.online = require("./config.json").online
-        global.groups = require("./config.json").groups
+        global.online = require(process.cwd() + "/config.json").online
+        global.groups = require(process.cwd() + "/config.json").groups
     }
     function setStatus (sts){
         global.online = sts
         require("fs").writeFileSync("./config.json", JSON.stringify({online: sts, groups: groups}, null, 2))
     }
-    function restart (){
+    async function restart (){
+        canexecute = false
         console.log("Se creo el archivo de configuracion y mensaje, Puede editarlos y reiniciar el bot, El bot se reiniciara en 5 segundos")
-        sleep(5000)
+        await sleep(5000)
 
         process.exit(1)
     }
@@ -60,6 +62,7 @@ const pino = require("pino")
         printQRInTerminal: true,
         downloadHistory: false
     }
+    if (!canexecute) return
     const killua = new WAConnection(WASocket(connOptions))
 
     killua.ev.on("creds.update", saveCreds)

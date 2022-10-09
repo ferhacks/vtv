@@ -1,4 +1,22 @@
 {
+"name": "doyouremember",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin" : "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ferhacks/vtv.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ferhacks/vtv/issues"
+  },
+  "homepage": "https://github.com/ferhacks/vtv#readme",
+  "description": "",
   "dependencies": {
     "@adiwajshing/baileys": "^4.4.0",
     "@hapi/boom": "^10.0.0",
@@ -9,4 +27,4 @@
     "node-fetch": "^2.6.7",
     "qrcode-terminal": "^0.12.0"
   }
-}
+ }
