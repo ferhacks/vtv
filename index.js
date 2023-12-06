@@ -1,4 +1,4 @@
-const { default: WASocket, Browsers ,DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, delay, jidNormalizedUser, makeWALegacySocket, useSingleFileLegacyAuthState, DEFAULT_CONNECTION_CONFIG, DEFAULT_LEGACY_CONNECTION_CONFIG } = require("@adiwajshing/baileys")
+const { default: WASocket, Browsers ,DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, delay, jidNormalizedUser, makeWALegacySocket, useSingleFileLegacyAuthState, DEFAULT_CONNECTION_CONFIG, DEFAULT_LEGACY_CONNECTION_CONFIG } = require("@whiskeysockets/baileys")
 let interval = null
 groups = null
 canexecute = true
@@ -60,7 +60,8 @@ const pino = require("pino")
         browser: Browsers.macOS('Desktop'),
         auth: state,
         printQRInTerminal: true,
-        downloadHistory: false
+        downloadHistory: false,
+        version
     }
     if (!canexecute) return
     const killua = new WAConnection(WASocket(connOptions))
@@ -103,10 +104,14 @@ const pino = require("pino")
             let cmdName = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
 
             switch (cmdName) {
+                case "tag":
                 case "tagall":
                 case "noti":
                 if (!isGroup) return killua.reply(from, "Este comando solo se puede usar en grupos!", m)
                 if (!isAdmin) return killua.reply(from, "Necesitas ser administrador para usar este comando!", m)
+                if (quoted) {
+                    killua.sendMessage(from, { text : quoted.text  , mentions: participants.map(a => a.id)}, { quoted: m })
+                }
                 killua.sendMessage(from, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
                 break
                 case "setgrp":
